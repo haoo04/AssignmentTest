@@ -1,0 +1,139 @@
+/* 全局样式 */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 标题区域 */
+.d-flex.justify-content-between.align-items-center.mb-4 {
+    margin-bottom: 2rem !important;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+h1 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* 按钮样式 */
+.btn {
+    padding: 0.5rem 1.25rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-primary {
+    color: #3498db;
+    border-color: #3498db;
+}
+
+.btn-outline-primary:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* 帖子列表样式 */
+.list-group {
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.list-group-item {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem !important;
+    transition: all 0.2s ease;
+}
+
+.list-group-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.list-group-item h5 {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.list-group-item p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* 日期和用户信息样式 */
+small.text-muted {
+    color: #7f8c8d !important;
+    font-size: 0.85rem;
+}
+
+.badge.bg-primary.rounded-pill {
+    background-color: #3498db !important;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+/* 提示信息样式 */
+.alert {
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    border: none;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-info {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .list-group-item {
+        padding: 1rem;
+    }
+    
+    .d-flex.justify-content-between.align-items-center {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    
+    h1 {
+        margin-bottom: 1rem;
+    }
+}

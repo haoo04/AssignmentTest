@@ -1,0 +1,75 @@
+<?php
+// start session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+$userId = $_SESSION['user_id'] ?? null;
+
+// Check for success or error messages
+$success = isset($_GET['success']) ? true : false;
+$error = isset($_GET['error']) ? $_GET['error'] : '';
+
+require_once '../../controllers/DiscussionController.php';
+require_once '../../models/Discussion.php';
+
+global $con;
+$controller = new DiscussionController($con);
+$posts = $controller->showAllPosts();
+
+// Include Header
+require_once(__DIR__ . "/../../views/navi/header.php");
+?>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Community Discussion</h1>
+        <?php if ($userId): ?>
+            <a href="post_form.php" class="btn btn-primary">New Post</a>
+        <?php else: ?>
+            <a href="/../login.php" class="btn btn-outline-primary">Log in to create Post</a>
+        <?php endif; ?>
+    </div>
+    
+    <?php if ($success): ?>
+        <div class="alert alert-success">Successful!</div>
+    <?php endif; ?>
+    
+    <?php if (!empty($error)): ?>
+        <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
+    <?php endif; ?>
+    
+    <?php if (empty($posts)): ?>
+        <div class="alert alert-info">There are no discussion posts yet. Be the first one to post!</div>
+    <?php else: ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="list-group">
+                    <?php foreach ($posts as $post): ?>
+                        <a href="post_detail.php?id=<?= $post['post_id'] ?>" class="list-group-item list-group-item-action">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="mb-1"><?= htmlspecialchars($post['title']) ?></h5>
+                                <small><?= date('Y-m-d', strtotime($post['created_at'])) ?></small>
+                            </div>
+                            <p class="mb-1 text-truncate"><?= htmlspecialchars(substr($post['content'], 0, 150)) ?><?= strlen($post['content']) > 150 ? '...' : '' ?></p>
+                            
+                            <?php
+                            // Get the number of replies to a post
+                            $repliesCount = mysqli_query($con, "SELECT COUNT(*) as count FROM post_replies WHERE post_id = " . $post['post_id']);
+                            $count = mysqli_fetch_assoc($repliesCount)['count'];
+                            ?>
+                            
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-user"></i> <?= htmlspecialchars($post['user_id']) ?> 
+                                </small>
+                                <span class="badge bg-primary rounded-pill"><?= $count ?> Reply</span>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php require_once(__DIR__ . "/../../views/navi/footer.php"); ?>
