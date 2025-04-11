@@ -10,7 +10,7 @@ class Discussion
         $this->con = $con;
     }
 
-    // 创建讨论帖子
+    // Create a discussion post
     public function createPost($userId, $title, $content)
     {
         if (!$this->con) {
@@ -29,7 +29,7 @@ class Discussion
         return true;
     }
 
-    // 获取讨论帖子
+    // Get discussion posts
     public function getPost()
     {
         if (!$this->con) {
@@ -47,6 +47,7 @@ class Discussion
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    // Show Post detail
     public function getPostDetail($postId)
     {
         if (!$this->con) {
@@ -69,7 +70,7 @@ class Discussion
 
     }
 
-    // 删除讨论帖子
+    // Delete discussin Post
     public function deletePost($postId, $userId)
     {
         if (!$this->con) {
@@ -78,7 +79,7 @@ class Discussion
         $postId = (int)$postId;
         $userId = (int)$userId;
     
-        // 验证用户是否是帖子作者
+        // Verify that the user is the post author
         $query = "SELECT user_id FROM discussion_posts WHERE post_id = $postId";
         $result = mysqli_query($this->con, $query);
     
@@ -91,16 +92,16 @@ class Discussion
             return false;
         }
     
-        // 先删除所有回复
+        // Delete all replies before delte post
         $deleteRepliesQuery = "DELETE FROM post_replies WHERE post_id = $postId";
         mysqli_query($this->con, $deleteRepliesQuery);
     
-        // 再删除帖子
+        // Delete the post
         $deletePostQuery = "DELETE FROM discussion_posts WHERE post_id = $postId";
         return mysqli_query($this->con, $deletePostQuery);
     }
 
-    // 回复讨论帖子
+    // Reply to discussion post
     public function replyToPost($postId, $userId, $content)
     {
         if (!$this->con) {
@@ -166,7 +167,6 @@ class Discussion
         $replyId = (int) $replyId;
         $userId = (int) $userId;
 
-        // 验证用户是否是回复作者
         $query = "SELECT user_id FROM post_replies WHERE reply_id = $replyId";
         $result = mysqli_query($this->con, $query);
 
@@ -176,14 +176,14 @@ class Discussion
 
         $reply = mysqli_fetch_assoc($result);
         if ($reply['user_id'] != $userId) {
-            return false; // 用户不是回复作者
+            return false; 
         }
 
         $deleteQuery = "DELETE FROM post_replies WHERE reply_id = $replyId";
         return mysqli_query($this->con, $deleteQuery);
     }
 
-    // 更新讨论帖子
+    // Update discussion post
     public function updatePost($postId, $userId, $title, $content)
     {
         if (!$this->con) {
@@ -195,7 +195,6 @@ class Discussion
         $title = mysqli_real_escape_string($this->con, $title);
         $content = mysqli_real_escape_string($this->con, $content);
 
-        // 验证用户是否是帖子作者
         $query = "SELECT user_id FROM discussion_posts WHERE post_id = $postId";
         $result = mysqli_query($this->con, $query);
 
@@ -205,7 +204,7 @@ class Discussion
 
         $post = mysqli_fetch_assoc($result);
         if ($post['user_id'] != $userId) {
-            return false; // 用户不是帖子作者
+            return false; 
         }
 
         $updateQuery = "UPDATE discussion_posts SET title = '$title', content = '$content', 
@@ -213,7 +212,7 @@ class Discussion
         return mysqli_query($this->con, $updateQuery);
     }
 
-    // 更新回复评论
+    // Update reply comment
     public function updateReply($replyId, $userId, $content)
     {
         if (!$this->con) {
@@ -224,7 +223,6 @@ class Discussion
         $userId = (int) $userId;
         $content = mysqli_real_escape_string($this->con, $content);
 
-        // 验证用户是否是回复作者
         $query = "SELECT user_id FROM post_replies WHERE reply_id = $replyId";
         $result = mysqli_query($this->con, $query);
 
@@ -234,7 +232,7 @@ class Discussion
 
         $reply = mysqli_fetch_assoc($result);
         if ($reply['user_id'] != $userId) {
-            return false; // 用户不是回复作者
+            return false; 
         }
 
         $updateQuery = "UPDATE post_replies SET content = '$content', 

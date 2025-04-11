@@ -20,6 +20,7 @@ $posts = $controller->showAllPosts();
 require_once(__DIR__ . "/../../views/navi/header.php");
 ?>
 
+<link rel="stylesheet" href="../../assets/all_posts.css">
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Community Discussion</h1>

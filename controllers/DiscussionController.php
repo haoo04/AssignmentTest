@@ -84,7 +84,7 @@ class DiscussionController
         }
     }
 
-    // Handling deleted posts
+    // Handling delet posts
     public function deletePost($postId, $userId)
     {
         if ($userId) {
@@ -98,6 +98,7 @@ class DiscussionController
         }
     }
 
+    // Handling delete reply
     public function deleteReply($replyId, $postId, $userId)
     {
         if ($userId) {
@@ -105,7 +106,7 @@ class DiscussionController
                 header("Location: post_detail.php?id=$postId&success=1");
                 exit();
             } else {
-                header("Location: post_detail.php?id=$postId&error=" . urlencode("删除回复失败"));
+                header("Location: post_detail.php?id=$postId&error=" . urlencode("Failed to delete reply"));
                 exit();
             }
         } else {
@@ -118,7 +119,7 @@ class DiscussionController
     {
         $userId = $_SESSION['user_id'] ?? null;
         if (!$userId) {
-            $this->error('login.php', '请先登录');
+            $this->error('login.php', 'Please Login');
             return;
         }
 
@@ -131,17 +132,17 @@ class DiscussionController
                 header("Location: ../discussions/post_detail.php?id=" . $postId . "&updated=1");
                 exit();
             } else {
-                $this->error('../discussions/edit_post.php?id=' . $postId, '更新失败，可能您不是帖子作者');
+                $this->error('../discussions/edit_post.php?id=' . $postId, 'Update failed, maybe you are not the post author');
             }
         }
     }
 
-    // 处理更新回复
+    // Handling update replies
     public function updateReply()
     {
         $userId = $_SESSION['user_id'] ?? null;
         if (!$userId) {
-            $this->error('login.php', '请先登录');
+            $this->error('login.php', 'Please Login');
             return;
         }
 
@@ -154,55 +155,55 @@ class DiscussionController
                 header("Location: ../discussions/post_detail.php?id=" . $postId . "&updated=1");
                 exit();
             } else {
-                $this->error('../discussions/edit_reply.php?id=' . $replyId, '更新失败，可能您不是回复作者');
+                $this->error('../discussions/edit_reply.php?id=' . $replyId, 'Update failed, maybe you are not the author');
             }
         }
     }
 
-    // 显示添加评论表单
+    // Show add comment form
     public function showAddPostForm()
     {
         $content = isset($_POST['content']) ? trim($_POST['content']) : '';
         include(__DIR__ . "/../views/discussions/post_form.php");
     }
 
-    // 显示编辑帖子表单
+    // Display the edit post form
     public function showEditPostForm($postId)
     {
         $userId = $_SESSION['user_id'] ?? null;
         if (!$userId) {
-            $this->error('login.php', '请先登录');
+            $this->error('login.php', 'Please Login');
             return;
         }
 
         $postData = $this->discussion->getPostDetail($postId);
 
         if (!$postData) {
-            $this->error('../index.php', '未找到该帖子');
+            $this->error('../index.php', 'The post was not found');
             return;
         }
 
         if ($postData['user_id'] != $userId) {
-            $this->error('../index.php', '您无权编辑此帖子');
+            $this->error('../index.php', 'You do not have permission to edit this post');
             return;
         }
 
         include(__DIR__ . "/../views/discussions/edit_post.php");
     }
 
-    // 显示编辑回复表单
+    // Show edit reply form
     public function showEditReplyForm($replyId)
     {
         $userId = $_SESSION['user_id'] ?? null;
         if (!$userId) {
-            $this->error('login.php', '请先登录');
+            $this->error('login.php', 'Please Login');
             return;
         }
 
         $replyData = $this->discussion->getReply($replyId);
 
         if ($replyData['user_id'] != $userId) {
-            $this->error('../index.php', '您无权编辑此回复');
+            $this->error('../index.php', 'You do not have permission to edit this reply');
             return;
         }
 
