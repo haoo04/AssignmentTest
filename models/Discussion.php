@@ -139,6 +139,24 @@ class Discussion
         return mysqli_fetch_all($result, MYSQLI_ASSOC);
     }
 
+    public function getReply($replyId){
+        if (!$this->con) {
+            die("Database connection is missing.");
+        }
+        $replyId = (int) $replyId;
+
+        $query = "SELECT r.*, p.post_id FROM post_replies r 
+        JOIN discussion_posts p ON r.post_id = p.post_id 
+        WHERE r.reply_id = $replyId";
+
+        $result = mysqli_query($this->con, $query);
+
+        if (!$result || mysqli_num_rows($result) === 0) {
+            return null;
+        }
+        return mysqli_fetch_assoc($result);
+    }
+
     public function deleteReply($replyId, $userId)
     {
         if (!$this->con) {
