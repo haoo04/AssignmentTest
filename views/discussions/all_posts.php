@@ -1,5 +1,4 @@
 <?php
-// start session
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -59,9 +58,17 @@ require_once(__DIR__ . "/../../views/navi/header.php");
                             $count = mysqli_fetch_assoc($repliesCount)['count'];
                             ?>
                             
+                            <?php
+                            // Get the username
+                            $result = mysqli_query($con, "SELECT username FROM users WHERE user_id = " . $post['user_id']);
+                            $username = '';
+                            if ($row = mysqli_fetch_assoc($result)) {
+                                $username = $row['username'];
+                            }
+                            ?>
                             <div class="d-flex justify-content-between align-items-center mt-2">
                                 <small class="text-muted">
-                                    <i class="fas fa-user"></i> <?= htmlspecialchars($post['user_id']) ?> 
+                                    <i class="fas fa-user"></i> <?= htmlspecialchars($username) ?> 
                                 </small>
                                 <span class="badge bg-primary rounded-pill"><?= $count ?> Reply</span>
                             </div>

@@ -27,11 +27,13 @@ $error = isset($_GET['error']) ? $_GET['error'] : null;
 require_once(__DIR__ . "/../../controllers/DiscussionController.php");
 $controller = new DiscussionController($con);
 $replyData = $controller->showReply($replyId);
+$postId = $replyData['post_id'];
+$postData = $controller->showPost($postId);
 $controller->updateReply();
 
 // Check if the current user is the reply author
 if ($replyData['user_id'] != $userId) {
-    header("Location: post_detail.php?id=" . $replyData['post_id'] . "&error=" . urlencode("您无权编辑此回复"));
+    header("Location: post_detail.php?id=" . $replyData['post_id'] . "&error=" . urlencode("You do not have permission to edit this reply"));
     exit();
 }
 
@@ -45,7 +47,7 @@ require_once(__DIR__ . "/../../views/navi/header.php");
                 <div class="card-header">
                     <h2>Edit Reply</h2>
                     <p class="text-muted">
-                        Reply At: <a href="post_detail.php?id=<?= $replyData['post_id'] ?>"><?= htmlspecialchars($replyData['post_title']) ?></a>
+                        Reply At: <a href="post_detail.php?id=<?= $postId ?>"><?= htmlspecialchars($postData['title']) ?></a>
                     </p>
                 </div>
                 

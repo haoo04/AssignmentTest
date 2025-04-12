@@ -67,20 +67,18 @@ class DiscussionController
             return false;
         }
 
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $content = $_POST['content'];
+        $content = $_POST['content'];
 
-            if (empty($content)) {
-                $this->error("../discussions/post_detail.php?id=$postId", 'The reply content cannot be empty');
-                return false;
-            }
-            if ($this->discussion->replyToPost($postId,$userId,  $content)) {
-                header("Location: ../discussions/post_detail.php?id=$postId&success=1");
-                exit();
-            }else {
-                $this->error("../discussions/post_detail.php?id=$postId", 'Reply failed');
-                return false;
-            }
+        if (empty($content)) {
+            $this->error("../discussions/post_detail.php?id=$postId", 'The reply content cannot be empty');
+            return false;
+        }
+        if ($this->discussion->replyToPost($postId,$userId,  $content)) {
+            header("Location: ../discussions/post_detail.php?id=$postId&success=1");
+            exit();
+        }else {
+            $this->error("../discussions/post_detail.php?id=$postId", 'Reply failed');
+            return false;
         }
     }
 
@@ -160,10 +158,9 @@ class DiscussionController
         }
     }
 
-    // Show add comment form
+    // Show add post form
     public function showAddPostForm()
     {
-        $content = isset($_POST['content']) ? trim($_POST['content']) : '';
         include(__DIR__ . "/../views/discussions/post_form.php");
     }
 
