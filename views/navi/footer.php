@@ -1,4 +1,4 @@
-<!-- 页脚 -->
+<!-- Footer -->
 <footer class="footer mt-5 py-4 bg-dark text-white">
     <div class="container">
         <div class="row">

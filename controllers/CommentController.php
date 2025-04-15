@@ -19,10 +19,15 @@ class CommentController
 
     }
 
+    public function showCommentDetail($commentId){
+        $commentDetail = $this->comment->getComment($commentId);
+        return $commentDetail;
+    }
+
     // 显示添加评论表单
     public function showAddCommentForm()
     {
-        include(__DIR__ . "/../views/comments/form.php");
+        include(__DIR__ . "/../views/comments/comment_form.php");
     }
 
     // 处理添加评论的表单提交

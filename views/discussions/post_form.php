@@ -6,7 +6,7 @@ $userId = $_SESSION['user_id'] ?? null;
 
 // If not logged in, redirect to the login page
 if (!$userId) {
-    header("Location: ../../login.php?error=" . urlencode("请先登录"));
+    header("Location: ../../login.php?error=" . urlencode("Please Login"));
     exit();
 }
 

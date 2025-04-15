@@ -7,11 +7,11 @@ $userId = $_SESSION['user_id'] ?? null;
 
 // If not logged in, redirect to the login page
 if (!$userId) {
-    header("Location: ../auth/login.php?error=" . urlencode("请先登录"));
+    header("Location: ../auth/login.php?error=" . urlencode("Please Login"));
     exit();
 }
 
-//
+//get the reply id
 $replyId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 // If not reply id, redirect to the all_post page
