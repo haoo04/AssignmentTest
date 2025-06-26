@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/../config.php");
+require_once(__DIR__ . "../../config.php");
 
 class Discussion
 {
@@ -55,7 +55,7 @@ class Discussion
         }
 
         $postId = (int) $postId;
-        $query = "SELECT p.*, u.username, u.profile_image 
+        $query = "SELECT p.*, u.username
                   FROM discussion_posts p
                   JOIN users u ON p.user_id = u.user_id
                   WHERE p.post_id = $postId";
@@ -127,7 +127,7 @@ class Discussion
             die("Database connection is missing.");
         }
 
-        $query = "SELECT r.*, u.username, u.profile_image 
+        $query = "SELECT r.*, u.username 
                       FROM post_replies r 
                       JOIN users u ON r.user_id = u.user_id 
                       WHERE r.post_id = $postId 

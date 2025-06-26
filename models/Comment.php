@@ -10,7 +10,6 @@ class Comment
         $this->con = $con;
     }
 
-    // 添加评论和评分
     public function addComment($recipeId, $userId, $content, $rating){
         if (!$this->con) {
             die("Database connection is missing.");
@@ -30,7 +29,6 @@ class Comment
         return true;
     }
 
-    // 获取食谱的所有评论
     public function getAllComment($recipeId){
         if (!$this->con) {
             die("Database connection is missing.");

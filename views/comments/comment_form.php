@@ -1,4 +1,5 @@
 <?php
+include '../header.php' ;
 //ensure user login
 if (!isset($_SESSION['user_id'])) {
     echo '<div class="alert alert-warning">Please log in before adding comments</div>';

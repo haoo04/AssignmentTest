@@ -1,6 +1,7 @@
 <?php
-require_once(__DIR__ . "/../config.php");
-require_once(__DIR__ . "/../models/Discussion.php");
+require_once(__DIR__ . "../../config.php");
+require_once(__DIR__ . "../../models/Discussion.php");
+
 
 global $con;
 class DiscussionController

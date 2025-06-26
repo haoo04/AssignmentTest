@@ -11,7 +11,6 @@ class CommentController
         $this->comment = new Comment($con);
     }
 
-    // 显示食谱评论列表
     public function showComments($recipeId)
     {
         $commentsData = $this->comment->getAllComment($recipeId);
@@ -24,13 +23,11 @@ class CommentController
         return $commentDetail;
     }
 
-    // 显示添加评论表单
     public function showAddCommentForm()
     {
         include(__DIR__ . "/../views/comments/comment_form.php");
     }
 
-    // 处理添加评论的表单提交
     public function addComment($recipeId)
     {
         $userId = $_SESSION['user_id'] ?? null;
