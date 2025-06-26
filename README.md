@@ -1,4 +1,4 @@
-# Forum System
+# CookSmart-Community Engagement Module
 
 This is a simple forum system built with PHP. Users can register, log in, post threads, comment on posts, and search for threads.
 
